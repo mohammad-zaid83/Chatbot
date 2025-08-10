@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon AI Assistant</title>
+    <title>Quantum AI Assistant</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
     <style>
@@ -22,11 +22,12 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background: radial-gradient(ellipse at bottom, var(--dark-matter) 0%, #000000 100%);
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -80,12 +81,14 @@
         }
 
         .chatbot-container {
-            width: 420px;
-            height: 700px;
+            width: 100%;
+            max-width: 420px;
+            height: 100vh;
+            max-height: 700px;
             background: rgba(15, 23, 42, 0.25);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-radius: 28px;
+            border-radius: 0;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4),
                         0 0 0 1px rgba(255, 255, 255, 0.05),
                         0 0 30px 5px rgba(0, 240, 255, 0.15);
@@ -95,14 +98,21 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             position: relative;
             transform: perspective(1000px);
-            animation: float 8s ease-in-out infinite;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
-            25% { transform: translateY(-15px) rotateX(2deg) rotateY(1deg); }
-            50% { transform: translateY(0) rotateX(0deg) rotateY(-1deg); }
-            75% { transform: translateY(-10px) rotateX(-1deg) rotateY(0deg); }
+        @media (min-width: 768px) {
+            .chatbot-container {
+                border-radius: 28px;
+                height: 700px;
+                animation: float 8s ease-in-out infinite;
+            }
+            
+            @keyframes float {
+                0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+                25% { transform: translateY(-15px) rotateX(2deg) rotateY(1deg); }
+                50% { transform: translateY(0) rotateX(0deg) rotateY(-1deg); }
+                75% { transform: translateY(-10px) rotateX(-1deg) rotateY(0deg); }
+            }
         }
 
         .holographic-overlay {
@@ -150,7 +160,7 @@
         }
 
         .chatbot-header {
-            padding: 22px;
+            padding: 16px 20px;
             background: linear-gradient(
                 90deg, 
                 rgba(15, 23, 42, 0.8) 0%, 
@@ -158,15 +168,16 @@
             );
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             position: relative;
             z-index: 2;
+            min-height: 72px;
         }
 
         .avatar-orb {
-            width: 56px;
-            height: 56px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: linear-gradient(
                 135deg, 
@@ -187,8 +198,8 @@
         }
 
         .avatar-core {
-            width: 50px;
-            height: 50px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             background: var(--deep-space);
             display: flex;
@@ -196,7 +207,7 @@
             align-items: center;
             color: white;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 18px;
             position: relative;
             overflow: hidden;
         }
@@ -223,12 +234,13 @@
 
         .header-info {
             flex: 1;
+            min-width: 0;
         }
 
         .header-info h2 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             background: linear-gradient(
                 90deg, 
                 var(--starlight), 
@@ -238,32 +250,39 @@
             background-clip: text;
             color: transparent;
             letter-spacing: -0.5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .header-info p {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--moon-dust);
             display: flex;
             align-items: center;
             gap: 6px;
             font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .quantum-status {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background: #10b981;
             border-radius: 50%;
             position: relative;
+            flex-shrink: 0;
         }
 
         .quantum-status::after {
             content: '';
             position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
             border-radius: 50%;
             background: #10b981;
             opacity: 0.4;
@@ -278,12 +297,13 @@
 
         .header-actions {
             display: flex;
-            gap: 12px;
+            gap: 8px;
+            flex-shrink: 0;
         }
 
         .quantum-btn {
-            width: 34px;
-            height: 34px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.08);
             border: none;
@@ -326,33 +346,35 @@
         }
 
         .quantum-btn svg {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
         }
 
         .chatbot-messages {
             flex: 1;
-            padding: 22px;
+            padding: 16px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 12px;
             position: relative;
             z-index: 1;
+            -webkit-overflow-scrolling: touch;
         }
 
         .message {
-            max-width: 82%;
-            padding: 16px 20px;
-            border-radius: 22px;
-            line-height: 1.5;
-            font-size: 15px;
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            line-height: 1.4;
+            font-size: 14px;
             position: relative;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             opacity: 0;
             transform: translateY(10px);
             animation: message-appear 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             will-change: transform, opacity;
+            word-break: break-word;
         }
 
         @keyframes message-appear {
@@ -362,7 +384,7 @@
         .bot-message {
             align-self: flex-start;
             background: rgba(30, 41, 59, 0.7);
-            border-top-left-radius: 8px;
+            border-top-left-radius: 6px;
             color: var(--starlight);
             border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
@@ -375,7 +397,7 @@
                 var(--cosmic-purple) 0%, 
                 var(--nebula-pink) 100%
             );
-            border-top-right-radius: 8px;
+            border-top-right-radius: 6px;
             color: white;
             box-shadow: 0 5px 20px rgba(124, 58, 237, 0.3);
         }
@@ -383,20 +405,20 @@
         .typing-indicator {
             display: flex;
             align-self: flex-start;
-            padding: 16px 20px;
+            padding: 12px 16px;
             background: rgba(30, 41, 59, 0.7);
-            border-radius: 22px;
-            border-top-left-radius: 8px;
+            border-radius: 18px;
+            border-top-left-radius: 6px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(5px);
         }
 
         .typing-dot {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background: var(--moon-dust);
             border-radius: 50%;
-            margin: 0 4px;
+            margin: 0 3px;
             animation: typing-animation 1.6s infinite ease-in-out;
         }
 
@@ -414,13 +436,13 @@
 
         @keyframes typing-animation {
             0%, 60%, 100% { transform: translateY(0); opacity: 0.6; }
-            30% { transform: translateY(-8px); opacity: 1; }
+            30% { transform: translateY(-6px); opacity: 1; }
         }
 
         .message-time {
-            font-size: 11px;
+            font-size: 10px;
             color: var(--moon-dust);
-            margin-top: 8px;
+            margin-top: 6px;
             display: flex;
             justify-content: flex-end;
             font-weight: 500;
@@ -431,7 +453,7 @@
         }
 
         .chatbot-input-container {
-            padding: 18px;
+            padding: 12px;
             background: linear-gradient(
                 180deg, 
                 rgba(15, 23, 42, 0.4) 0%, 
@@ -439,7 +461,7 @@
             );
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
-            gap: 12px;
+            gap: 8px;
             align-items: center;
             position: relative;
             z-index: 2;
@@ -447,16 +469,20 @@
 
         .quantum-input {
             flex: 1;
-            padding: 14px 18px;
-            border-radius: 25px;
+            padding: 12px 16px;
+            border-radius: 24px;
             border: none;
             background: rgba(255, 255, 255, 0.08);
             color: var(--starlight);
-            font-size: 15px;
+            font-size: 14px;
             outline: none;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid transparent;
             font-weight: 500;
+            min-height: 48px;
+            max-height: 120px;
+            resize: none;
+            overflow-y: auto;
         }
 
         .quantum-input:focus {
@@ -471,8 +497,8 @@
         }
 
         .send-quantum {
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background: linear-gradient(
                 135deg, 
@@ -489,6 +515,7 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(124, 58, 237, 0.3);
+            flex-shrink: 0;
         }
 
         .send-quantum::before {
@@ -509,7 +536,7 @@
         }
 
         .send-quantum:hover {
-            transform: translateY(-3px) scale(1.05);
+            transform: translateY(-2px) scale(1.05);
             box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
         }
 
@@ -522,22 +549,22 @@
         }
 
         .send-quantum svg {
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
         }
 
         .quick-replies {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 12px;
+            gap: 8px;
+            margin-top: 10px;
         }
 
         .quantum-chip {
-            padding: 10px 16px;
+            padding: 8px 14px;
             background: rgba(255, 255, 255, 0.08);
-            border-radius: 18px;
-            font-size: 13px;
+            border-radius: 16px;
+            font-size: 12px;
             color: var(--moon-dust);
             cursor: pointer;
             transition: all 0.3s ease;
@@ -563,7 +590,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 24px;
+            gap: 20px;
             z-index: 10;
             opacity: 0;
             pointer-events: none;
@@ -576,18 +603,18 @@
         }
 
         .processing-text {
-            font-size: 17px;
+            font-size: 15px;
             color: var(--starlight);
             text-align: center;
-            margin-top: 24px;
+            margin-top: 20px;
             font-weight: 600;
             max-width: 80%;
-            line-height: 1.5;
+            line-height: 1.4;
         }
 
         .quantum-loader {
-            width: 90px;
-            height: 90px;
+            width: 80px;
+            height: 80px;
             position: relative;
         }
 
@@ -596,7 +623,7 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            border: 3px solid transparent;
+            border: 2px solid transparent;
             border-top-color: var(--cosmic-purple);
             border-bottom-color: var(--nebula-pink);
             animation: quantum-spin 2.5s linear infinite;
@@ -637,17 +664,17 @@
 
         .quantum-dot {
             position: absolute;
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background: var(--quantum-blue);
             border-radius: 50%;
             animation: dot-orbit 4s infinite linear;
-            box-shadow: 0 0 10px var(--quantum-blue);
+            box-shadow: 0 0 8px var(--quantum-blue);
         }
 
         @keyframes dot-orbit {
-            0% { transform: rotate(0deg) translateX(40px) rotate(0deg); }
-            100% { transform: rotate(360deg) translateX(40px) rotate(-360deg); }
+            0% { transform: rotate(0deg) translateX(32px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(32px) rotate(-360deg); }
         }
 
         .welcome-screen {
@@ -665,7 +692,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 40px;
+            padding: 24px;
             text-align: center;
             z-index: 20;
             transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -674,13 +701,13 @@
         .welcome-screen.hidden {
             opacity: 0;
             pointer-events: none;
-            transform: translateY(-30px);
+            transform: translateY(-20px);
         }
 
         .welcome-orb {
-            width: 120px;
-            height: 120px;
-            margin-bottom: 30px;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 24px;
             position: relative;
         }
 
@@ -690,8 +717,8 @@
         }
 
         .welcome-text h2 {
-            font-size: 28px;
-            margin-bottom: 16px;
+            font-size: 24px;
+            margin-bottom: 12px;
             background: linear-gradient(
                 90deg, 
                 var(--starlight), 
@@ -704,16 +731,16 @@
         }
 
         .welcome-text p {
-            font-size: 16px;
+            font-size: 14px;
             color: var(--moon-dust);
-            margin-bottom: 36px;
-            line-height: 1.6;
+            margin-bottom: 28px;
+            line-height: 1.5;
             font-weight: 500;
         }
 
         .start-quantum {
-            padding: 16px 36px;
-            border-radius: 30px;
+            padding: 14px 32px;
+            border-radius: 28px;
             background: linear-gradient(
                 135deg, 
                 var(--cosmic-purple) 0%, 
@@ -746,8 +773,8 @@
         }
 
         .start-quantum:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(124, 58, 237, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4);
         }
 
         .start-quantum:hover::before {
@@ -760,12 +787,12 @@
 
         /* Custom scrollbar */
         .chatbot-messages::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
 
         .chatbot-messages::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.03);
-            border-radius: 4px;
+            border-radius: 3px;
         }
 
         .chatbot-messages::-webkit-scrollbar-thumb {
@@ -773,18 +800,18 @@
                 var(--cosmic-purple), 
                 var(--nebula-pink)
             );
-            border-radius: 4px;
+            border-radius: 3px;
         }
 
         /* Message options */
         .message-options {
             position: absolute;
-            right: -10px;
+            right: -8px;
             top: 50%;
             transform: translateY(-50%) scale(0.9);
             background: rgba(30, 41, 59, 0.95);
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             overflow: hidden;
             opacity: 0;
             pointer-events: none;
@@ -801,16 +828,16 @@
         }
 
         .option-btn {
-            padding: 10px 16px;
+            padding: 8px 14px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 13px;
+            gap: 8px;
+            font-size: 12px;
             color: var(--moon-dust);
             cursor: pointer;
             transition: all 0.3s ease;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            min-width: 120px;
+            min-width: 110px;
         }
 
         .option-btn:last-child {
@@ -823,21 +850,21 @@
         }
 
         .option-btn svg {
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
         }
 
         /* Quantum toast */
         .quantum-toast {
             position: fixed;
-            bottom: 30px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%) translateY(20px);
             background: rgba(30, 41, 59, 0.95);
             color: white;
-            padding: 14px 24px;
-            border-radius: 25px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            padding: 12px 20px;
+            border-radius: 22px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             z-index: 1000;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             opacity: 0;
@@ -845,8 +872,9 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             font-weight: 500;
+            max-width: 90%;
         }
 
         .quantum-toast.show {
@@ -854,24 +882,107 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 480px) {
+        /* Mobile keyboard adjustments */
+        @media (max-height: 700px) {
+            .chatbot-header {
+                padding: 12px 16px;
+                min-height: 64px;
+            }
+            
+            .chatbot-messages {
+                padding: 12px;
+                gap: 8px;
+            }
+            
+            .message {
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+            
+            .chatbot-input-container {
+                padding: 10px;
+            }
+            
+            .quantum-input {
+                padding: 10px 14px;
+                font-size: 13px;
+                min-height: 44px;
+            }
+            
+            .send-quantum {
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        /* Desktop-specific styles */
+        @media (min-width: 768px) {
             .chatbot-container {
-                width: 100%;
-                height: 100vh;
-                border-radius: 0;
+                height: 700px;
             }
             
-            .welcome-screen {
-                padding: 30px;
+            .chatbot-header {
+                padding: 20px;
             }
             
-            .welcome-text h2 {
-                font-size: 24px;
+            .avatar-orb {
+                width: 56px;
+                height: 56px;
             }
             
-            .welcome-text p {
+            .avatar-core {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+            
+            .header-info h2 {
+                font-size: 20px;
+            }
+            
+            .header-info p {
+                font-size: 13px;
+            }
+            
+            .quantum-btn {
+                width: 34px;
+                height: 34px;
+            }
+            
+            .quantum-btn svg {
+                width: 18px;
+                height: 18px;
+            }
+            
+            .chatbot-messages {
+                padding: 20px;
+                gap: 16px;
+            }
+            
+            .message {
+                padding: 14px 18px;
                 font-size: 15px;
+                max-width: 80%;
+            }
+            
+            .chatbot-input-container {
+                padding: 16px;
+                gap: 12px;
+            }
+            
+            .quantum-input {
+                padding: 14px 18px;
+                font-size: 15px;
+            }
+            
+            .send-quantum {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .send-quantum svg {
+                width: 22px;
+                height: 22px;
             }
         }
     </style>
@@ -921,7 +1032,7 @@
         </div>
         
         <div class="chatbot-input-container">
-            <input type="text" class="quantum-input" id="quantumInput" placeholder="Query the neural network...">
+            <textarea class="quantum-input" id="quantumInput" placeholder="Query the neural network..." rows="1"></textarea>
             <button class="send-quantum" id="sendQuantumBtn">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
             </button>
@@ -947,20 +1058,17 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Create cosmic background
             const cosmicBg = document.getElementById('cosmicBg');
-            for (let i = 0; i < 150; i++) {
+            for (let i = 0; i < 100; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
                 
-                // Random size between 1px and 3px
                 const size = Math.random() * 2 + 1;
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
                 
-                // Random position
                 star.style.left = `${Math.random() * 100}%`;
                 star.style.top = `${Math.random() * 100}%`;
                 
-                // Random animation
                 star.style.setProperty('--duration', `${Math.random() * 5 + 3}s`);
                 star.style.animationDelay = `${Math.random() * 5}s`;
                 
@@ -973,34 +1081,28 @@
                 const ripple = document.createElement('div');
                 ripple.classList.add('ripple');
                 
-                // Random position
                 const x = Math.random() * 100;
                 const y = Math.random() * 100;
                 ripple.style.left = `${x}%`;
                 ripple.style.top = `${y}%`;
                 
-                // Random size
-                const size = Math.random() * 200 + 100;
+                const size = Math.random() * 150 + 80;
                 ripple.style.width = `${size}px`;
                 ripple.style.height = `${size}px`;
                 
-                // Random delay
                 ripple.style.animationDelay = `${Math.random() * 3}s`;
                 
                 quantumRipples.appendChild(ripple);
                 
-                // Remove after animation completes
                 setTimeout(() => {
                     ripple.remove();
                 }, 12000);
             }
             
-            // Create initial ripples
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 3; i++) {
                 createRipple();
             }
             
-            // Continue creating ripples periodically
             setInterval(createRipple, 3000);
             
             // Create quantum dots for loader
@@ -1008,15 +1110,10 @@
             for (let i = 0; i < 6; i++) {
                 const dot = document.createElement('div');
                 dot.classList.add('quantum-dot');
-                dot.style.transform = `rotate(${i * 60}deg) translateX(40px) rotate(${i * -60}deg)`;
+                dot.style.transform = `rotate(${i * 60}deg) translateX(32px) rotate(${i * -60}deg)`;
                 dot.style.animationDelay = `${i * 0.2}s`;
                 quantumDots.appendChild(dot);
             }
-            
-            // Load Lottie animation for welcome orb
-            // In a real implementation, you would load an actual Lottie animation here
-            // For this example, we'll simulate it with a placeholder
-            const orbAnimation = document.getElementById('orbAnimation');
             
             // Chat functionality
             const welcomeScreen = document.getElementById('welcomeScreen');
@@ -1031,7 +1128,20 @@
             
             let isFirstMessage = true;
             
-            // Advanced bot responses with markdown-like formatting
+            // Auto-resize textarea
+            quantumInput.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+                
+                // Limit max height
+                if (this.scrollHeight > 120) {
+                    this.style.overflowY = 'auto';
+                } else {
+                    this.style.overflowY = 'hidden';
+                }
+            });
+            
+            // Sample bot responses
             const quantumResponses = [
                 "**Quantum neural network activated**\nHello! I'm your quantum AI assistant, ready to explore the frontiers of machine learning with you. What would you like to discuss?",
                 "**Analyzing request**\nI specialize in explaining complex AI concepts through intuitive interfaces like this one. What aspect of machine learning interests you today?",
@@ -1043,10 +1153,8 @@
             
             // Start quantum button click handler
             startQuantumBtn.addEventListener('click', function() {
-                // Animate the welcome screen out
                 welcomeScreen.classList.add('hidden');
                 
-                // Create a cool transition effect
                 gsap.from(quantumMessages, {
                     duration: 0.8,
                     opacity: 0,
@@ -1056,17 +1164,15 @@
                 
                 setTimeout(() => {
                     addQuantumMessage(quantumResponses[0], 'bot');
-                }, 1200);
+                }, 1000);
             });
             
             // Close quantum button click handler
             closeQuantumBtn.addEventListener('click', function() {
-                // Animate the welcome screen back in
                 welcomeScreen.classList.remove('hidden');
                 quantumMessages.innerHTML = '';
                 isFirstMessage = true;
                 
-                // Create particles explosion effect
                 createParticlesExplosion();
             });
             
@@ -1076,20 +1182,22 @@
                 if (message) {
                     addQuantumMessage(message, 'user');
                     quantumInput.value = '';
+                    quantumInput.style.height = 'auto';
                     
                     // Show processing animation
                     setTimeout(() => {
                         respondToQuantumMessage(message);
-                    }, 600);
+                    }, 500);
                 }
             }
             
             // Send button click handler
             sendQuantumBtn.addEventListener('click', sendQuantumMessage);
             
-            // Input field enter key handler
-            quantumInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
+            // Input field enter key handler (without shift)
+            quantumInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
                     sendQuantumMessage();
                 }
             });
@@ -1116,18 +1224,10 @@
                     
                     // Process markdown-like formatting
                     let processedText = text;
-                    
-                    // Bold text
                     processedText = processedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                    
-                    // Lists
                     processedText = processedText.replace(/^\-\s(.*$)/gm, '<li>$1</li>');
                     processedText = processedText.replace(/^\d\.\s(.*$)/gm, '<li>$1</li>');
-                    
-                    // Code blocks
                     processedText = processedText.replace(/```([a-z]*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
-                    
-                    // Line breaks
                     processedText = processedText.replace(/\n/g, '<br>');
                     
                     const messageContent = document.createElement('div');
@@ -1178,7 +1278,6 @@
                 // Show processing animation
                 aiProcessing.classList.add('active');
                 
-                // Animate the processing screen
                 gsap.from(aiProcessing, {
                     duration: 0.6,
                     opacity: 0,
@@ -1208,8 +1307,8 @@
                     response = quantumResponses[randomIndex];
                 }
                 
-                // Simulate processing time (longer for more complex responses)
-                const processingTime = 1500 + Math.random() * 1500 + (response.length / 10);
+                // Simulate processing time
+                const processingTime = 1200 + Math.random() * 1200 + (response.length / 10);
                 
                 setTimeout(() => {
                     aiProcessing.classList.remove('active');
@@ -1217,7 +1316,7 @@
                     // Show typing indicator
                     const typingIndicator = addQuantumMessage('', 'bot', true);
                     
-                    // Simulate typing effect with progressive reveal
+                    // Simulate typing effect
                     let i = 0;
                     let currentMessage = '';
                     const typingInterval = setInterval(() => {
@@ -1249,20 +1348,11 @@
             // Format quantum text with progressive formatting
             function formatQuantumText(text) {
                 let processedText = text;
-                
-                // Process bold text that's complete
                 processedText = processedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                
-                // Process lists that are complete
                 processedText = processedText.replace(/^\-\s(.*$)/gm, '<li>$1</li>');
                 processedText = processedText.replace(/^\d\.\s(.*$)/gm, '<li>$1</li>');
-                
-                // Process code blocks that are complete
                 processedText = processedText.replace(/```([a-z]*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
-                
-                // Process line breaks
                 processedText = processedText.replace(/\n/g, '<br>');
-                
                 return processedText;
             }
             
@@ -1300,7 +1390,7 @@
                 const particles = [];
                 const colors = ['#7c3aed', '#ec4899', '#00f0ff', '#f1f5f9'];
                 
-                for (let i = 0; i < 50; i++) {
+                for (let i = 0; i < 30; i++) {
                     const particle = document.createElement('div');
                     particle.style.position = 'absolute';
                     particle.style.width = '6px';
@@ -1317,8 +1407,8 @@
                     particles.push(particle);
                     
                     gsap.to(particle, {
-                        x: (Math.random() - 0.5) * 300,
-                        y: (Math.random() - 0.5) * 300,
+                        x: (Math.random() - 0.5) * 200,
+                        y: (Math.random() - 0.5) * 200,
                         opacity: 1,
                         duration: 0.4,
                         ease: "power2.out"
@@ -1337,35 +1427,45 @@
                 }
             }
             
-            // Initial welcome message after 5 seconds if user doesn't click start
+            // Initial welcome message after 3 seconds if user doesn't click start
             setTimeout(() => {
                 if (isFirstMessage && !welcomeScreen.classList.contains('hidden')) {
                     welcomeScreen.classList.add('hidden');
                     setTimeout(() => {
                         addQuantumMessage(quantumResponses[0], 'bot');
                         isFirstMessage = false;
-                    }, 1200);
+                    }, 1000);
                 }
-            }, 5000);
+            }, 3000);
             
-            // Add floating animation to container
-            gsap.to(".chatbot-container", {
-                y: -10,
-                duration: 3,
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut"
-            });
+            // Add floating animation to container on desktop
+            if (window.matchMedia('(min-width: 768px)').matches) {
+                gsap.to(".chatbot-container", {
+                    y: -10,
+                    duration: 3,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+                
+                gsap.to(".chatbot-container", {
+                    rotationY: 1,
+                    rotationX: 1,
+                    duration: 8,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+            }
             
-            // Add subtle rotation animation
-            gsap.to(".chatbot-container", {
-                rotationY: 1,
-                rotationX: 1,
-                duration: 8,
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut"
-            });
+            // Handle mobile viewport height
+            function adjustViewportHeight() {
+                let vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            }
+            
+            adjustViewportHeight();
+            window.addEventListener('resize', adjustViewportHeight);
         });
     </script>
 </body>
